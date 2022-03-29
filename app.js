@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 app.use('/signup',(request,response)=>{
-    console.log(request.body); userModel.create(request.body).then(result=>{
+     userModel.create(request.body).then(result=>{
         console.log(result);
         return response.status(200).json(result);
     }).catch(err=>{
