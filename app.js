@@ -2,6 +2,7 @@ const express=require('express');
 const bodyParser=require('body-parser');
 const cors=require('cors');
 const path=require('path');
+const imageModel=require('./model/image.model');
 const { body } = require('express-validator');
 const multer = require("multer");
 var storage = multer.diskStorage(
@@ -58,6 +59,18 @@ app.use('/add-category',upload.single('categoryImage'),body('categoryName').not(
     });
 });
 
+
+app.use('/imageadd',upload.single('imageAdd'),(request,response)=>{
+    imageModel.create({
+        imageUrl:"http://localhost:3000/images/"+request.file.filename})
+    .then(result=>{
+        
+      return response.status(201).json(result);
+    }).catch(err=>{
+       
+        return response.status(403).json({message:'Opps ! Something went wrong'});
+    });
+});
 
 app.listen(port,()=>{
     console.log('server running');
