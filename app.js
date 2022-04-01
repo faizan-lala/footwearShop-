@@ -1,6 +1,7 @@
 const express=require('express');
 const bodyParser=require('body-parser');
 const cors=require('cors');
+const jwt=require('jsonwebtoken');
 const path=require('path');
 const imageModel=require('./model/image.model');
 const { body } = require('express-validator');
@@ -39,8 +40,15 @@ app.use('/signup',(request,response)=>{
 
 app.use('/signin',(request,response)=>{
     userModel.findOne({email:request.body.email,password:request.body.password}).then(result => {
-        if (result)
-            return response.status(200).json(result);
+        if (result){
+            let payload={subject:result._id};
+            let token=jwt.sign(payload,'fjhdfjsghkjsgskjgskjgkjjfh');
+            return response.status(200).json({
+                status:'login success',
+                current_user:result,
+                token:token
+            });
+        }
         else
             return response.status(404).json({ message: 'Invalid user' })
     }).catch(err => {
@@ -48,16 +56,16 @@ app.use('/signin',(request,response)=>{
     })
 });
  
-app.use('/add-category',upload.single('categoryImage'),body('categoryName').not().isEmpty(),(request,response)=>{
-    categoryModel.create({
-        categoryName:request.body.categoryName,
-        categoryImage:"http://localhost:3000/images/"+request.file.filename})
-    .then(result=>{
-      return response.status(201).json(result);
-    }).catch(err=>{
-        return response.status(403).json({message:'Opps Something went wrong'});
-    });
-});
+// app.use('/add-category',upload.single('categoryImage'),body('categoryName').not().isEmpty(),(request,response)=>{
+//     categoryModel.create({
+//         categoryName:request.body.categoryName,
+//         categoryImage:"http://localhost:3000/images/"+request.file.filename})
+//     .then(result=>{
+//       return response.status(201).json(result);
+//     }).catch(err=>{
+//         return response.status(403).json({message:'Opps Something went wrong'});
+//     });
+// });
 
 
 app.use('/imageadd',upload.single('imageAdd'),(request,response)=>{
@@ -71,6 +79,18 @@ app.use('/imageadd',upload.single('imageAdd'),(request,response)=>{
         return response.status(403).json({message:'Opps ! Something went wrong'});
     });
 });
+
+// app.use('/imagesadd',upload.array('imagesAdd'),(request,response)=>{
+//     imageModel.create({
+//         imageUrl:"http://localhost:3000/images/"+request.file.filename})
+//     .then(results=>{
+        
+//       return response.status(201).json(results);
+//     }).catch(err=>{
+       
+//         return response.status(403).json({message:'Opps ! Something went wrong'});
+//     });
+// });
 
 app.listen(port,()=>{
     console.log('server running');
