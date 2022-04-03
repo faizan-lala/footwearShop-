@@ -57,7 +57,7 @@ app.post('/signin',(request,response)=>{
     })
 });
  
-app.post('/add-category',upload.single('categoryImage'),body('categoryName').not().isEmpty(),(request,response)=>{
+app.post('/add-category',token.verifyToken,upload.single('categoryImage'),body('categoryName').not().isEmpty(),(request,response)=>{
     categoryModel.create({
         categoryName:request.body.categoryName,
         categoryImage:"https://angular-123.herokuapp.com/images/"+request.file.filename})
@@ -77,7 +77,7 @@ app.post('/imageadd',upload.single('imageAdd'),(request,response)=>{
     }).catch(err=>{
        
         return response.status(403).json({message:'Opps ! Something went wrong'});
-    });
+    });                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 });
 
 // app.use('/imagesadd',upload.array('imagesAdd'),(request,response)=>{
