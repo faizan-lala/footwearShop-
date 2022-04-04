@@ -68,6 +68,14 @@ app.post('/add-category',upload.single('categoryImage'),body('categoryName').not
     });
 });
 
+app.get('/category-list',(request,response)=>{
+    categoryModel.find()
+    .then(result=>{
+        return response.status(200).json(result);
+    }).catch(err=>{
+    response.status(500).json({message:'Opps ! Something went wrong....'});
+    })
+})
 
 app.post('/imageadd',upload.single('imageAdd'),(request,response)=>{
     imageModel.create({
