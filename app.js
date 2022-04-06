@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const adminRoute=require('./routes/adminroute');
 const adminCategory=require('./routes/admincategory.route');
+const adminProduct=require('./routes/adminproduct.route');
 const jwt = require('jsonwebtoken');
 const token = require('./middleware/token.varification');
 const path = require('path');
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 
 app.use('/admin',adminRoute);
 app.use('/admin-category',adminCategory);
+app.use('/admin-product',adminProduct);
 app.listen(port, () => {
     console.log('server running');
 })
