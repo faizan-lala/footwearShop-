@@ -1,4 +1,6 @@
 const express=require('express');
+const jwt =require('jsonwebtoken');
+const token =require('../middleware/token.varification');
 const productController=require('../controller/adminproduct.controller');
 const router=express.Router();
 
@@ -13,8 +15,8 @@ var storage = multer.diskStorage(
 
 var upload = multer({ storage: storage });
 
-router.post("/add-product",upload.single("productImage"),productController.addProduct);
-router.get('/product-list',productController.productList);
-router.delete('/delete-product',productController.deleteProduct);
-router.post("/update-product",upload.single("productImage"),productController.updateProduct);
+router.post("/add-product",token.verifyToken,upload.single("productImage"),productController.addProduct);
+router.get('/product-list',token.verifyToken,productController.productList);
+router.delete('/delete-product',token.verifyToken,productController.deleteProduct);
+router.post("/update-product",token.verifyToken,upload.single("productImage"),productController.updateProduct);
 module.exports=router;
