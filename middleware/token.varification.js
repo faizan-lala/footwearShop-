@@ -12,6 +12,8 @@ exports.verifyToken = (request, response, next) => {
         let token = request.headers.authorization.split(" ")[1];
         let payload = jwt.verify(token, 'fjhdfjsghkjsgskjgskjgkjjfh');
         next();
+        console.log(payload);
+        console.log(token);
     } catch (err) {
         return response.status(401).send('unauthorized request');
     }

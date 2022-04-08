@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const adminRoute=require('./routes/adminroute');
 const adminCategory=require('./routes/admincategory.route');
 const adminProduct=require('./routes/adminproduct.route');
@@ -14,7 +13,9 @@ mongoose.connect('mongodb+srv://faizankhan:786786@cluster0.5nhsv.mongodb.net/myF
                  
 const { request, response } = require('express');
 const port = process.env.PORT || 3000;
- const app = express();
+const app = express();
+const cors = require('cors');
+
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
