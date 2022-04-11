@@ -8,6 +8,11 @@ exports.addProduct= (request, response) => {
         description: request.body.description,
         quantity: request.body.quantity,
         day: request.body.day,
+        brand:request.body.brand,
+        shoetype:request.body.shoetype,
+        discount:request.body.discount,
+        size:request.body.size,
+        color:request.body.color,
         catId: request.body.catId
     }).then(result => {
         return response.status(201).json(result);

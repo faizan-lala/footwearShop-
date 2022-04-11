@@ -23,6 +23,25 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    brand: {
+        type: String,
+        required: true
+    },
+    shoetype: {
+        type: String,
+        required: true
+    },
+    discount:{
+        type:String
+    },
+    size:{
+        type:String,
+        required:true
+    },
+    color:{
+        type:String,
+        required:true
+    },
     day: {
         typr: String,
     
