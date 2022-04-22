@@ -26,7 +26,7 @@ body('categoryName').not().isEmpty(),categoryController.AddCategory);
 router.get('/category-list',token.verifyToken,categoryController.CategoryList);
 
 
-router.delete('/delete-category',token.verifyToken,categoryController.DeleteCategory)
+router.post('/delete-category',token.verifyToken,categoryController.DeleteCategory)
 
 
 router.post('/update-category',token.verifyToken, upload.single('categoryImage'),categoryController.UpdateCategory)
