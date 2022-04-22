@@ -1,6 +1,8 @@
 const adminModel=require('../model/admin.model');
 const jwt = require('jsonwebtoken');
 const token = require('../middleware/token.varification');
+
+
 exports.SignUp=(request, response) => {
     adminModel.create(request.body).then(result => {
         console.log(result);

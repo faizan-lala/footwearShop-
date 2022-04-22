@@ -1,15 +1,14 @@
-const { text } = require('body-parser');
-const mongoose=require('mongoose');
 
+const mongoose=require('mongoose');
+const Schema=mongoose.Schema;
 const categorySchema=new mongoose.Schema({
    categoryName:{
        type:String,
-       required:true
    },
    categoryImage:{
     type:String,
-       required:true
+    
    }
 });
 
-module.exports=mongoose.model('categories',categorySchema);
+module.exports=mongoose.model('category',categorySchema);
